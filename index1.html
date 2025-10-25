@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR MY BBY 😍</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6f1;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            border-radius: 10px;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #e91e63;
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #555;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            background-color: #e91e63;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #c2185b;
+        }
+
+        .image-container img {
+            margin-top: 20px;
+            border-radius: 10px;
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .icon-suratan {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="greeting">FOR MY BBY 😍</h1>
+        <p class="message">Aku sayang kamu lebih dari apapun di dunia ini!</p>
+        <button id="changeButton" onclick="changeMessage()">Lanjutt yee 😘 </button>
+        <div id="image-container" class="image-container">
+            <!-- Gambar akan muncul di sini -->
+        </div>
+    </div>
+
+    <script>
+        let messageIndex = 0;  // Variabel untuk melacak urutan pesan yang sudah tampil
+let isMessageFinal = false; // Variabel untuk mengetahui apakah pesan terakhir sudah muncul
+
+function changeMessage() {
+    const messages = [
+        "Kamu adalah segalanya buat aku!",
+        "Setiap detik bersamamu itu sangat berarti.",
+        "Aku merasa beruntung punya kamu.",
+        "Kamu selalu bikin hari-hariku lebih indah."
+    ];
+
+    // Ambil pesan berdasarkan urutan
+    const currentMessage = messages[messageIndex];
+    document.querySelector('.message').textContent = currentMessage;
+
+    // Increment index untuk pesan berikutnya
+    messageIndex++;
+
+    // Jika sudah mencapai pesan terakhir, ubah tampilan tombol
+    if (messageIndex === messages.length) {
+        // Ubah teks h1 menjadi "Coba klik"
+        document.querySelector('h1.greeting').textContent = "Coba klik";
+
+        // Hapus tag <p> setelah pesan terakhir muncul
+        document.querySelector('.message').style.display = 'none';
+
+        // Ubah tombol menjadi ikon surat
+        const button = document.getElementById('changeButton');
+        button.innerHTML = '✉️';  // Ubah teks tombol jadi ikon surat
+        button.setAttribute('onclick', 'showImage()');  // Ganti fungsi saat tombol diklik
+        isMessageFinal = true;  // Tandakan pesan terakhir sudah ditampilkan
+    }
+}
+
+
+        function showImage() {
+            if (isMessageFinal) {
+                // Menampilkan gambar saat tombol ikon surat diklik
+                const imageContainer = document.getElementById('image-container');
+                imageContainer.innerHTML = '';  // Kosongkan kontainer gambar
+
+                const img = document.createElement('img');
+                img.src = "uwu.jpg"; // Ganti dengan path gambar yang kamu inginkan
+                img.alt = "Gambar untuk Cewek Tersayang";
+                imageContainer.appendChild(img);
+
+                // Mengubah teks h1 menjadi "Lope uu" setelah gambar muncul
+                document.querySelector('h1.greeting').textContent = "Lope uu";
+
+                // Menyembunyikan tombol setelah gambar muncul
+                document.getElementById('changeButton').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

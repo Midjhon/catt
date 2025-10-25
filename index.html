@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>uwwwuu</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffe6f1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        width: 350px;
+        text-align: center;
+        position: relative;
+    }
+    h2 {
+        margin-bottom: 40px;
+        color: #e91e63;
+    }
+    .button-wrapper {
+        position: relative;
+        height: 50px; /* area tombol */
+        margin-bottom: 20px;
+    }
+    button {
+        padding: 10px 25px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 120px; /* ukuran sama */
+        height: 40px;
+    }
+    #yesButton {
+        background-color: #e91e63;
+        color: white;
+        position: absolute;
+        left: 20px; /* kiri */
+        top: 0;
+    }
+    #noButton {
+        background-color: #9e9e9e;
+        color: white;
+        position: absolute;
+        left: 210px; /* kanan awal */
+        top: 0;
+    }
+    .image-container img {
+    margin-top: -90px;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    opacity: 0; /* mulai dari transparan */
+    transition: opacity 0.8s ease; /* fade-in */
+}
+
+/* efek hati */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(-45deg);
+    opacity: 0.8;
+    animation: floatUp 2s ease-out forwards;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 10px;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translate(-50%, 0) rotate(-45deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -150px) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container" id="formContainer">
+    <h2 id="question">Catt sayang aku nggak?</h2>
+    <div class="button-wrapper">
+        <button id="yesButton">Iyaaaaa</button>
+        <button id="noButton">Nggakk!</button>
+    </div>
+    <div id="imageContainer" class="image-container"></div>
+</div>
+
+<script>
+const noButton = document.getElementById('noButton');
+const yesButton = document.getElementById('yesButton');
+const wrapper = document.querySelector('.button-wrapper');
+const imageContainer = document.getElementById('imageContainer');
+const question = document.getElementById('question');
+
+function moveButton() {
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const btnWidth = noButton.offsetWidth;
+    const btnHeight = noButton.offsetHeight;
+
+    const minX = 150; // agar tidak menimpa tombol "Ya"
+    const maxX = wrapperRect.width - btnWidth;
+    const minY = 0;
+    const maxY = wrapperRect.height - btnHeight;
+
+    const newX = Math.random() * (maxX - minX) + minX;
+    const newY = Math.random() * (maxY - minY);
+
+    noButton.style.left = newX + 'px';
+    noButton.style.top = newY + 'px';
+}
+
+// tombol "Tidak" pindah saat mouse masuk atau diklik
+noButton.addEventListener('mouseenter', moveButton);
+noButton.addEventListener('click', moveButton);
+
+// tombol "Ya" menampilkan gambar dan mengubah teks
+yesButton.addEventListener('click', () => {
+    // ubah pertanyaan
+    question.textContent = 'Sayangg Catt jugaaaaa ❤️‍🔥';
+
+    // hapus tombol "Tidak" dan "Ya"
+    noButton.style.display = 'none';
+    yesButton.style.display = 'none';
+
+    // tampilkan gambar
+    const img = document.createElement('img');
+    img.src = 'uwu.jpg';
+    img.alt = 'Gambar untuk cewek tersayang';
+    imageContainer.innerHTML = '';
+    imageContainer.appendChild(img);
+
+    // fade-in gambar
+    img.offsetHeight; // trigger reflow
+    img.style.opacity = 1;
+
+    // spawn hati terus menerus
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+
+        const containerRect = imageContainer.getBoundingClientRect();
+        heart.style.left = containerRect.left + Math.random() * containerRect.width + 'px';
+        heart.style.top = containerRect.top + Math.random() * containerRect.height + 'px';
+
+        document.body.appendChild(heart);
+
+        // bisa biarkan tetap muncul tanpa remove
+        // tapi kalau mau bersih, bisa hapus setelah misal 5 detik:
+        setTimeout(() => heart.remove(), 5000);
+    }
+
+    // spawn 1 hati tiap 300ms
+    setInterval(createHeart, 300);
+});
+
+
+</script>
+
+</body>
+</html>
